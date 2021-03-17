@@ -31,3 +31,40 @@ fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
 fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale(i, n)) * n
 fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
+
+fun Canvas.drawSweepWheelJoiner(scale : Float, w : Float, h : Float, paint : Paint) {
+    val r1 : Float = Math.min(w, h) / (2 * r1Factor)
+    val r2 : Float = Math.min(w, h) / (2 * r2Factor)
+    val gap : Float = Math.min(w, h) / gapFactor
+    val sf : Float = scale.sinify()
+    val sf1 : Float = sf.divideScale(0, parts)
+    val sf2 : Float = sf.divideScale(1, parts)
+    val sf3 : Float = sf.divideScale(2, parts)
+    save()
+    translate(w / 2, h / 2)
+    save()
+    translate(-gap / 2, 0f)
+    drawArc(RectF(-r1, -2 * r1, r1, 0f), 0f, 360f * sf1, true, paint)
+    restore()
+    save()
+    translate(gap / 2, 0f)
+    drawArc(RectF(-r2, - 2 * r2, r2, 0f), 0f, 360f * sf2, true, paint)
+    restore()
+    drawLine(
+        -gap / 2,
+        -2 * r1,
+        -gap / 2 + gap * sf3,
+        -2 * r1 + (-2 * r2 + 2 * r1) * sf3,
+        paint
+    )
+    restore()
+}
+
+fun Canvas.drawSLWJNode(i : Int, scale : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    paint.color = colors[i]
+    paint.strokeCap = Paint.Cap.ROUND
+    paint.strokeWidth = Math.min(w, h) / strokeFactor
+    drawSweepWheelJoiner(scale, w, h, paint)
+}
