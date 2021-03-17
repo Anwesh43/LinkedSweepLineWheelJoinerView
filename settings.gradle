@@ -1,0 +1,3 @@
+include ':swwplinewheeljoinerview'
+include ':app'
+rootProject.name = "LinkedSweepLineWheelJoinerView"
