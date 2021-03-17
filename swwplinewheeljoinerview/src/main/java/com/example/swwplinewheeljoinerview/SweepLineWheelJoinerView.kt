@@ -195,4 +195,27 @@ class SweepLineWheelJoinerView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : SweepLineWheelJoinerView) {
+
+        private val animator : Animator = Animator(view)
+        private val swlj : SweepLineWheelJoiner = SweepLineWheelJoiner(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            swlj.draw(canvas, paint)
+            animator.animate {
+                swlj.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            swlj.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
