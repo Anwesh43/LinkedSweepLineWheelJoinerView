@@ -218,4 +218,13 @@ class SweepLineWheelJoinerView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity: Activity) : SweepLineWheelJoinerView {
+            val view : SweepLineWheelJoinerView = SweepLineWheelJoinerView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
