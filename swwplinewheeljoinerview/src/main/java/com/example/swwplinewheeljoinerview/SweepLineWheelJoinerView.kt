@@ -22,9 +22,9 @@ val backColor : Int = Color.parseColor("#BDBDBD")
 val parts : Int = 4
 val scGap : Float = 0.02f / parts
 val strokeFactor : Float = 90f
-val r1Factor : Float = 6.6f
-val r2Factor : Float = 3.2f
-val gapFactor : Float = 2.9f
+val r1Factor : Float = 3.2f
+val r2Factor : Float = 6.6f
+val gapFactor : Float = 1.8f
 val delay : Long = 20
 
 fun Int.inverse() : Float = 1f / this
